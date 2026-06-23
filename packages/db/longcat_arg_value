@@ -1,0 +1,47 @@
+const { PrismaClient } = require('@prisma/client');
+
+// Use connection parameters instead of URL to avoid password encoding issues
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: 'postgresql://postgres@localhost:5432/medidepot',
+    },
+  },
+});
+
+// Override the connection to use PGPASSWORD
+process.env.PGPASSWORD = '***';
+
+async function seed() {
+  console.log('Seeding database...');
+
+  try {
+    // Test connection
+    const result = await prisma.$queryRaw`SELECT 1 as test`;
+    console.log('Connected!', result);
+  } catch (e) {
+    console.log('Connection error:', e.message?.substring(0, 200));
+    process.exit(1);
+  }
+
+  // ============ SPECIALTIES ============
+  const specialties = [
+    { name: 'Walk-in Clinics', slug: 'walk-in-clinics', iconEmoji: '🏥', description: 'Immediate care available without appointment' },
+    { name: 'Mental Health', slug: 'mental-health', iconEmoji: '🧠', description: 'Professional mental health support and counseling' },
+    { name: 'Physiotherapy', slug: 'physiotherapy', iconEmoji: '💪', description: 'Physical therapy and rehabilitation services' },
+    { name: 'Chiropractic', slug: 'chiropractic', iconEmoji: '⚡', description: 'Spinal health and alignment treatments' },
+    { name: 'Optometry', slug: 'optometry', iconEmoji: '👁️', description: 'Eye care and vision health services' },
+    { name: 'Dental', slug: 'dental', iconEmoji: '🦷', description: 'Dental care and oral health services' },
+    { name: 'Pharmacy', slug: 'pharmacy', iconEmoji: '💊', description: 'Medications and health products' },
+    { name: 'Massage Therapy', slug: 'massage-therapy', iconEmoji: '💆', description: 'Registered massage therapy services' },
+  ];
+
+  for (const s of specialties) {
+    await prisma.specialty.upsert({ where: { slug: s.slug }, update: s, create: s });
+  }
+  console.log(`✅ ${specialties.length} specialties seeded`);
+
+  console.log('\n🎉 Seeding complete!');
+}
+
+seed().catch(e => { console.error(e); process.exit(1); }).finally(() => prisma.$disconnect());
