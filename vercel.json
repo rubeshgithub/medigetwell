@@ -1,15 +1,29 @@
 {
-  "buildCommand": "cd apps/web && npm run build",
+  "name": "medigetwell",
+  "version": "1.0.0",
+  "description": "Healthcare marketplace connecting patients with clinics",
+  "buildCommand": "npm run build",
   "outputDirectory": "apps/web/.next",
   "installCommand": "npm install --legacy-peer-deps",
+  "regions": ["iad1"],
   "env": {
     "DATABASE_URL": "@database_url",
     "NEXTAUTH_SECRET": "@nextauth_secret",
-    "NEXTAUTH_URL": "@nextauth_url"
+    "NEXTAUTH_URL": "https://medigetwell.com"
+  },
+  "envDescription": {
+    "DATABASE_URL": "PostgreSQL connection string from Neon",
+    "NEXTAUTH_SECRET": "Random secret key for NextAuth",
+    "NEXTAUTH_URL": "Production domain URL"
   },
   "functions": {
-    "apps/web/src/app/**/*.ts": {
+    "apps/web/src/app/api/**/*.ts": {
       "maxDuration": 10
     }
+  },
+  "framework": "nextjs",
+  "projectSettings": {
+    "rootDirectory": "apps/web",
+    "nodeVersion": "20.x"
   }
 }
