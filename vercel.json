@@ -1,0 +1,15 @@
+{
+  "buildCommand": "cd apps/web && npm run build",
+  "outputDirectory": "apps/web/.next",
+  "installCommand": "npm install --legacy-peer-deps",
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "NEXTAUTH_SECRET": "@nextauth_secret",
+    "NEXTAUTH_URL": "@nextauth_url"
+  },
+  "functions": {
+    "apps/web/src/app/**/*.ts": {
+      "maxDuration": 10
+    }
+  }
+}
