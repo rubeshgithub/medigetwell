@@ -23,8 +23,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                     {post.publishedAt && (
                       <div className="flex items-center gap-1"><Calendar className="w-4 h-4" /></div>
                     )} */}
-          {post.authorName && (
-            <div className="flex items-center gap-1"><User className="w-4 h-4" /><span>{post.authorName}</span></div>
+          {post.excerpt && (
+            <div className="flex items-center gap-1"><User className="w-4 h-4" /><span>{post.excerpt}</span></div>
           )}
         </div>
         <div className="prose prose-lg max-w-none text-gray-700 whitespace-pre-wrap">{post.content}</div>

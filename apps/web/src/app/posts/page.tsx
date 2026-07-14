@@ -21,7 +21,6 @@ export default async function PostsPage() {
                 <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
                   <Calendar className="w-4 h-4" />
                   <time>{post.publishedAt?.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-                  {post.authorName && <span>· {post.authorName}</span>}
                 </div>
                 <h2 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600">{post.title}</h2>
                 {post.excerpt && <p className="text-gray-600 mt-2">{post.excerpt}</p>}
