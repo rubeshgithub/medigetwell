@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Healthcare marketplace connecting patients with clinics",
   "buildCommand": "npm run build",
-  "outputDirectory": "apps/web/.next",
+  "outputDirectory": ".next",
   "installCommand": "npm install --legacy-peer-deps",
   "regions": ["iad1"],
   "env": {
